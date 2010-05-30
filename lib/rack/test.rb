@@ -160,8 +160,9 @@ module Rack
         uri = URI.parse(path)
         uri.path = "/#{uri.path}" unless uri.path[0] == ?/
         uri.host ||= @default_host
-
-        env["HTTP_HOST"] = "#{uri.host}:#{uri.port}"
+        
+        port = uri.port ? ":#{uri.port}" : ''
+        env["HTTP_HOST"] = "#{uri.host}#{port}"
 
         env = default_env.merge(env)
 
